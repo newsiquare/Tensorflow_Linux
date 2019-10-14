@@ -1,0 +1,185 @@
+國網中心iService
+
+
+下載並安裝 teraterm (SSH 用戶端軟體 )
+下載並安裝 WinSCP 5.15 (檔案傳輸)
+
+依照"使用Rclone串雲端空間.pdf"，新增雲端空間 _googledrivedata
+
+打開Tera term, 並輸入
+User name 140.110.148.15 (GPU節點)
+主機 siquare01
+密碼 Siquare0107070606
+
+再輸入OTP，即可調出terminal對話視窗
+
+
+複製googledrive單一資料 至 國網中心siquare01/siquare01_data
+$ rclone copy _googledrivedata:Data/cifar-10-python.tar ~/siquare01_data
+
+同步googledrive某一資料夾內所有資料 至 國網中心siquare01/siquare01_data
+$ rclone sync _googledrivedata:Data ~/siquare01_data
+
+新增資料夾 
+$ mkdir siquare01_code
+$ cd siquare01_code
+$ mkdir tensorflow
+$ cd tensorflow
+
+確認新增資料夾成功
+$ dir
+
+=============================================
+連線WinSCP，登入主機帳號與主機密碼
+帳號 140.110.148.15 (GPU節點)
+主機 siquare01
+密碼 Siquare0107070606
+
+即可確認資料夾內有cifar-10-python.tar
+=============================================
+
+
+
+依據"TensorFlow Job使用說明_v20180905.pdf"..
+輸入
+$ module list
+$ module show cuda
+$ module load cuda/9.1.85
+$ module show anaconda3
+$ module load anaconda3/5.1.10
+$ nvidia-smi
+
+
+出現
+NVIDIA-SMI 410.48      Driver Version: 410.48
+0  Tesla P100-SXM2...sour
+1  Tesla P100-SXM2...
+2  Tesla P100-SXM2...
+3  Tesla P100-SXM2...
+
+
+
+建立您自己家目錄下的 env
+(不推,因為安裝到其他資料夾)$ conda create --prefix ~/py36_tensorflow1120 python=3.6 anaconda
+$ conda create --name py36_tensorflow1120 python=3.6.4
+======= 刪除環境 conda remove --name <env_name> --all ======
+
+
+系統已經安裝幾個虛擬環境
+$ conda env list
+
+激活
+$ source activate py36_tensorflow1120
+
+更新conda
+$ conda update -n base conda
+
+安裝
+$ conda install tensorflow=1.12.0
+$ conda install pillow, lxml, matplotlib
+$ conda install ipython
+$ conda install jupyter
+
+
+GitHub 上面下載 Tensorflow Object Detection API 的原始碼
+https://github.com/tensorflow/models.git
+
+編譯 Protobuf 函式庫
+$ cd siquare01_code/tensorflow_model/models/research
+$ protoc object_detection/protos/*.proto --python_out=.
+
+顯示當下位置
+$ pwd
+
+加入PYTHONPATH
+export PYTHONPATH=$PYTHONPATH:/home/siquare01/siquare01_code/tensorflow_model/models/research:/home/siquare01/siquare01_code/tensorflow_model/models/research/slim
+
+確認位置有加入成功
+$ echo $PYTHONPATH
+
+輸入
+python object_detection/builders/model_builder_test.py
+
+出現error
+ImportError: /cm/local/apps/gcc/6.3.0/lib64/libstdc++.so.6: version `CXXABI_1.3.11' not found (required by /home/siquare01/.conda/envs/py36_tensorflow1120/lib/python2.7/site-packages/tensorflow/python/_pywrap_tensorflow_internal.so)
+
+
+出現
+OK
+
+接著
+$ jupyter notebook
+
+刪除虛擬環境
+$ conda env remove -p /home/siquare01/py36_tensorflow1120
+$ conda env remove -n myenv 
+
+=======
+以下是您的新復原碼
+BZDVK-H8WBF-PEAXJ-ZLEXF-L2SV9
+
+========
+
+
+登入帳號 siquare@mail.mirdc.org.tw
+登入密碼 Siquare07070606
+
+
+主機帳號 siquare01
+主機密碼 Siquare0107070606
+
+李啟銘 
+michaellee@micb2b.com
+電話	(03)5880909	
+傳真	(03)5881919
+
+帆宣科技
+p4
+p6
+p10~13
+p16
+p23
+p25~26
+p28
+p31~33
+
+長庚大學
+p18
+p29~30
+
+
+
+============================================
+可以刪掉已有的annotation
+def annotations = getAnnotationObjects()
+removeObjects(annotations, true)
+
+
+輸出所有annotation框的X座標，Y座標，寬度，高度
+for (annotation in getAnnotationObjects()) {
+//def roi = getSelectedObject().getROI()
+def roi = annotation.getROI()   
+print([roi.getBoundsX(), roi.getBoundsY(), roi.getBoundsWidth(), roi.getBoundsHeight()])
+}
+
+
+新增一Annotation
+// Size in pixels at the base resolution
+int size = 500
+
+// Get center pixel
+def viewer = getCurrentViewer()
+int cx = viewer.getCenterPixelX()
+int cy = viewer.getCenterPixelY()
+
+// Create & add annotation
+def rgb = getColorRGB(0, 0, 255)
+def pathClass = getPathClass('blueTest', rgb)
+def roi = new RectangleROI(cx-size/2, cy-size/2, size, size)
+def annotation = new PathAnnotationObject(roi, pathClass)
+addObject(annotation)
+
+print   roi.getCentroidX()
+print   annotation.getROI().getCentroidX()
+
+saveAnnotationMeasurements("E:/0.Data_WSI/Output")
