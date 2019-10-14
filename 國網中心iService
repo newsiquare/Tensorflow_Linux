@@ -42,6 +42,7 @@ $ dir
 
 依據"TensorFlow Job使用說明_v20180905.pdf"..
 輸入
+$ lsb_release -a
 $ module list
 $ module show cuda
 $ module load cuda/9.1.85
