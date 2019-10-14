@@ -99,14 +99,20 @@ export PYTHONPATH=$PYTHONPATH:/home/siquare01/siquare01_code/tensorflow_model/mo
 $ echo $PYTHONPATH
 
 輸入
-python object_detection/builders/model_builder_test.py
+$ python object_detection/builders/model_builder_test.py
 
 出現error
 ImportError: /cm/local/apps/gcc/6.3.0/lib64/libstdc++.so.6: version `CXXABI_1.3.11' not found (required by /home/siquare01/.conda/envs/py36_tensorflow1120/lib/python2.7/site-packages/tensorflow/python/_pywrap_tensorflow_internal.so)
 
+此一error因gcc版本較舊(缺少CXXABI1.3.11)，觀察系統內有哪些CXXABI
+（https://www.cnblogs.com/mlgjb/p/11155939.html）
+$ strings /cm/local/apps/gcc/6.3.0/lib64/libstdc++.so.6 | grep CXXABI
 
-出現
-OK
+僅出現CXXABI_1.3～CXXABI_1.3.10，由此看出確實無CXXABI_1.3.11
+
+
+
+
 
 接著
 $ jupyter notebook
