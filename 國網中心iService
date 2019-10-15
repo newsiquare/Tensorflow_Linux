@@ -153,7 +153,8 @@ python3 dnn_regression.py
 依據"TensorFlow Job使用說明_v20180905.pdf"..
 cd siquare01_code/tensorflow
 python tf-cpu_1081015.py
-
+>>Shape: (10000, 10000) Device: /cpu:0
+>>Time taken: 0:01:37.376234
 
 
 
