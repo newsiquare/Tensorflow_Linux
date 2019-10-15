@@ -104,13 +104,22 @@ $ python object_detection/builders/model_builder_test.py
 出現error
 ImportError: /cm/local/apps/gcc/6.3.0/lib64/libstdc++.so.6: version `CXXABI_1.3.11' not found (required by /home/siquare01/.conda/envs/py36_tensorflow1120/lib/python2.7/site-packages/tensorflow/python/_pywrap_tensorflow_internal.so)
 
-此一error因gcc版本較舊(缺少CXXABI1.3.11)，觀察系統內有哪些CXXABI
+此error因gcc版本較舊(缺少CXXABI1.3.11)，觀察系統內有哪些CXXABI
+僅出現CXXABI_1.3～CXXABI_1.3.10，由此看出確實無CXXABI_1.3.11
 （https://www.cnblogs.com/mlgjb/p/11155939.html）
+（https://blog.csdn.net/ZX714311728/article/details/69628836）
+（https://itbilu.com/linux/management/NymXRUieg.html）
 $ strings /cm/local/apps/gcc/6.3.0/lib64/libstdc++.so.6 | grep CXXABI
 
-僅出現CXXABI_1.3～CXXABI_1.3.10，由此看出確實無CXXABI_1.3.11
+從error顯示的路徑看到 /cm/local/apps/gcc/6.3.0/lib64，cd進入此資料夾
+$ cd /cm/local/apps/gcc/6.3.0/lib64
 
+查找libstdc++.so.6的軟連結，確實已接上最新的libstdc++.so.6.0.22
+$ ls -l libstdc++.so.6
+＝> lrwxrwxrwx 1 root root 19 Nov 28  2017 libstdc++.so.6 -> libstdc++.so.6.0.22
 
+查找編譯gcc時最新的動態庫（會跑非常久），證實最新的只看到libstdc++.so.6.0.22
+find / -name "libstdc++.so.*"
 
 
 
