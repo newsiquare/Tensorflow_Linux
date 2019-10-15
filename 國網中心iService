@@ -62,7 +62,7 @@ NVIDIA-SMI 410.48      Driver Version: 410.48
 
 建立您自己家目錄下的 env
 (不推,因為安裝到其他資料夾)$ conda create --prefix ~/py36_tensorflow1120 python=3.6 anaconda
-$ conda create --name py36_tensorflow1120 python=3.6.4
+$ conda create --name py36_tensorflowGPU180 python=3.6.4
 ======= 刪除環境 conda remove --name <env_name> --all ======
 
 
@@ -70,13 +70,13 @@ $ conda create --name py36_tensorflow1120 python=3.6.4
 $ conda env list
 
 激活
-$ source activate py36_tensorflow1120
+$ source activate py36_tensorflowGPU180
 
 更新conda
 $ conda update -n base conda
 
 安裝
-$ conda install tensorflow=1.12.0
+$ conda install tensorflow-gpu=1.8.0 -y
 $ conda install pillow, lxml, matplotlib
 $ conda install ipython
 $ conda install jupyter
