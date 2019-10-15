@@ -101,25 +101,49 @@ $ echo $PYTHONPATH
 輸入
 $ python object_detection/builders/model_builder_test.py
 
-出現error
-ImportError: /cm/local/apps/gcc/6.3.0/lib64/libstdc++.so.6: version `CXXABI_1.3.11' not found (required by /home/siquare01/.conda/envs/py36_tensorflow1120/lib/python2.7/site-packages/tensorflow/python/_pywrap_tensorflow_internal.so)
+出現OK 
+  **************************
+  若安裝tensorflow =1.12.0...
+  會出現ImportError: /cm/local/apps/gcc/6.3.0/lib64/libstdc++.so.6: version `CXXABI_1.3.11' not found (required by /home/siquare01/.conda/envs/py36_tensorflow1120/lib/python2.7/site-packages/tensorflow/python/_pywrap_tensorflow_internal.so)
 
-此error因gcc版本較舊(缺少CXXABI1.3.11)，觀察系統內有哪些CXXABI
-僅出現CXXABI_1.3～CXXABI_1.3.10，由此看出確實無CXXABI_1.3.11
-（https://www.cnblogs.com/mlgjb/p/11155939.html）
-（https://blog.csdn.net/ZX714311728/article/details/69628836）
-（https://itbilu.com/linux/management/NymXRUieg.html）
-$ strings /cm/local/apps/gcc/6.3.0/lib64/libstdc++.so.6 | grep CXXABI
+  此error因gcc版本較舊(缺少CXXABI1.3.11)，觀察系統內有哪些CXXABI
+  僅出現CXXABI_1.3～CXXABI_1.3.10，由此看出確實無CXXABI_1.3.11
+  （https://www.cnblogs.com/mlgjb/p/11155939.html）
+  （https://blog.csdn.net/ZX714311728/article/details/69628836）
+  （https://itbilu.com/linux/management/NymXRUieg.html）
+  $ strings /cm/local/apps/gcc/6.3.0/lib64/libstdc++.so.6 | grep CXXABI
 
-從error顯示的路徑看到 /cm/local/apps/gcc/6.3.0/lib64，cd進入此資料夾
-$ cd /cm/local/apps/gcc/6.3.0/lib64
+  從error顯示的路徑看到 /cm/local/apps/gcc/6.3.0/lib64，cd進入此資料夾
+  $ cd /cm/local/apps/gcc/6.3.0/lib64
 
-查找libstdc++.so.6的軟連結，確實已接上最新的libstdc++.so.6.0.22
-$ ls -l libstdc++.so.6
-＝> lrwxrwxrwx 1 root root 19 Nov 28  2017 libstdc++.so.6 -> libstdc++.so.6.0.22
+  查找libstdc++.so.6的軟連結，確實已接上最新的libstdc++.so.6.0.22
+  $ ls -l libstdc++.so.6
+  ＝> lrwxrwxrwx 1 root root 19 Nov 28  2017 libstdc++.so.6 -> libstdc++.so.6.0.22
 
-查找編譯gcc時最新的動態庫（會跑非常久），證實最新的只看到libstdc++.so.6.0.22
-find / -name "libstdc++.so.*"
+  查找編譯gcc時最新的動態庫（會跑非常久），證實最新的只看到libstdc++.so.6.0.22
+  find / -name "libstdc++.so.*"
+  **************************
+
+依據"TensorFlow Job使用說明_v20180905.pdf"..
+跑一個 TF 的計算，使用CPU
+ cat tf-cpu.py
+ import sys
+ import numpy as np
+ import tensorflow as tf
+ from datetime import datetime
+ with tf.device(device_name):
+ random_matrix = tf.random_uniform(shape=shape, minval=0, maxval=1)
+ dot_operation = tf.matmul(random_matrix, tf.transpose(random_matrix))
+ sum_operation = tf.reduce_sum(dot_operation)
+ startTime = datetime.now()
+ with tf.Session(config=tf.ConfigProto(log_device_placement=True)) as session:
+ result = session.run(sum_operation)
+ print(result)
+
+
+
+
+
 
 
 
