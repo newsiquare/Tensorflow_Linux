@@ -77,7 +77,7 @@ $ conda update -n base conda
 
 安裝
 $ conda install tensorflow-gpu=1.8.0 -y
-$ conda install pillow, lxml, matplotlib
+$ conda install pillow, lxml, matplotlib, pandas
 $ conda install ipython
 $ conda install jupyter
 
@@ -138,11 +138,14 @@ print(sess.run(a + b))
 
 
 測試2..
-cd siquare01_code/tensorflow/examples/get_started/regression
+cd siquare01_code/tensorflow_model/models/samples/cookbook/regression
 python3 dnn_regression.py
->>出現..
->>al_step = 5000, loss = 222.90656
->>RMS error for the test set: $2133
+>>出現ModuleNotFoundError: No module named 'pandas'
+
+conda install pandas
+python3 dnn_regression.py
+>>Saving dict for global step 5000: average_loss = 4.2107234, global_step = 5000, loss = 202.11472
+>>RMS error for the test set: $2052
 
 
 
