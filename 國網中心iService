@@ -144,8 +144,8 @@ python dnn_regression.py
 
 conda install pandas
 python dnn_regression.py
->>Saving dict for global step 5000: average_loss = 4.2107234, global_step = 5000, loss = 202.11472
->>RMS error for the test set: $2052
+>>Saving dict for global step 5000: average_loss = 3.9333277, global_step = 5000, loss = 188.79973
+>>RMS error for the test set: $1983
 
 
 
