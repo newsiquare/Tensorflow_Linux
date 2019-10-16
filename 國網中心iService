@@ -154,7 +154,7 @@ python dnn_regression.py
 cd siquare01_code/tensorflow
 python tf-cpu_1081015.py
 >>Shape: (10000, 10000) Device: /cpu:0
->>Time taken: 0:01:37.376234
+>>Time taken: 0:00:26.967963
 
 
 
