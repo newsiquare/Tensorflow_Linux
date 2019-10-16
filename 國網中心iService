@@ -79,7 +79,6 @@ $ conda update -n base conda
 $ conda install tensorflow-gpu=1.8.0 -y
 $ conda install pillow, lxml, matplotlib, pandas
 $ conda install ipython
-$ conda install jupyter
 
 
 GitHub 上面下載 Tensorflow Object Detection API 的原始碼
@@ -149,18 +148,37 @@ python dnn_regression.py
 
 
 
-測試3..
+測試3-1..
 依據"TensorFlow Job使用說明_v20180905.pdf"..
+(1)將此pdf內的sample code編寫至tf-cpu_1081015.py
+(2)將此pdf內的sample code編寫至tf-gpu_1081015.py 
+上傳這兩個python至github
+https://github.com/newsiquare/Tensorflow_Linux/tree/master
+
+sftp傳tf-cpu_1081015.py至siquare01_code/tensorflow
+
 cd siquare01_code/tensorflow
 python tf-cpu_1081015.py
 >>Shape: (10000, 10000) Device: /cpu:0
 >>Time taken: 0:00:26.967963
 
 
+測試3-2 ( GPU運算 )..
+cd siquare01_code/tensorflow
+python tf-gpu_1081015.py
+Shape: (10000, 10000) Device: /gpu:3
+Time taken: 0:00:12.194470
+
+測試4
+pip intall tensorflow_datasets
+cd siquare01_code/tensorflow_model/models/tutorials/image/cifar10
+python cifar10_multi_gpu_train.py 
 
 
-
-
+$ conda install jupyter
+cd siquare01_code/tensorflow_model/models/research/object_detection
+jupyter notebook
+object_detection_tutorial.ipynb
 
 
 接著
