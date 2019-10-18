@@ -166,18 +166,16 @@ python tf-cpu_1081015.py
 測試3-2 ( GPU運算 )..
 cd siquare01_code/tensorflow
 python tf-gpu_1081015.py
-Shape: (10000, 10000) Device: /gpu:3
-Time taken: 0:00:12.194470
+>>Shape: (10000, 10000) Device: /gpu:3
+>>Time taken: 0:00:12.194470
 
 
 測試4-1 ( 1張GPU train cifar10 )..
-pip intall tensorflow_datasets
 cd siquare01_code/tensorflow_model/models/tutorials/image/cifar10
 python cifar10_multi_gpu_train.py 
 >>出現xxxx examples/sec   xxxxx sec/batch
 
 測試4-2 ( 4張GPU train cifar10 )..
-pip intall tensorflow_datasets
 cd siquare01_code/tensorflow_model/models/tutorials/image/cifar10
 python cifar10_multi_gpu_train_1081018gpu4.py 
 >>出現xxxx examples/sec   xxxxx sec/batch
