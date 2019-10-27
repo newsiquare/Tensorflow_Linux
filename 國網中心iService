@@ -123,7 +123,7 @@ $ python object_detection/builders/model_builder_test.py
   find / -name "libstdc++.so.*"
   **************************
 
-測試1..
+測試1-1
 python
 import tensorflow as tf
 hello = tf.constant('Hello, TensorFlow!')
@@ -135,6 +135,28 @@ print(sess.run(a + b))
 >>b'Hello, TensorFlow!'
 >>42
 
+測試1-2
+(ref:https://blog.csdn.net/linghugoolge/article/details/83989649)
+import numpy
+import tensorflow as tf
+a = tf.constant([1.0, 2.0, 3.0, 4.0, 5.0, 6.0], shape=[2, 3], name='a')
+b = tf.constant([1.0, 2.0, 3.0, 4.0, 5.0, 6.0], shape=[3, 2], name='b')
+c = tf.matmul(a, b)
+sess = tf.Session(config=tf.ConfigProto(log_device_placement=True))
+print(sess.run(c))
+>>Device mapping:
+>>/job:localhost/replica:0/task:0/device:GPU:0 -> device: 0, name: Tesla P100-SXM2-16GB, pci bus id: 0000:3d:00.0, compute capability: 6.0
+>>/job:localhost/replica:0/task:0/device:GPU:1 -> device: 1, name: Tesla P100-SXM2-16GB, pci bus id: 0000:3e:00.0, compute capability: 6.0
+>>/job:localhost/replica:0/task:0/device:GPU:2 -> device: 2, name: Tesla P100-SXM2-16GB, pci bus id: 0000:b1:00.0, compute capability: 6.0
+>>/job:localhost/replica:0/task:0/device:GPU:3 -> device: 3, name: Tesla P100-SXM2-16GB, pci bus id: 0000:b2:00.0, compute capability: 6.0
+>>MatMul: (MatMul): /job:localhost/replica:0/task:0/device:GPU:0
+>>2019-10-27 22:56:32.842151: I tensorflow/core/common_runtime/placer.cc:886] MatMul: (MatMul)/job:localhost/replica:0/task:0/device:GPU:0
+b: (Const): /job:localhost/replica:0/task:0/device:GPU:0
+>>2019-10-27 22:56:32.842182: I tensorflow/core/common_runtime/placer.cc:886] b: (Const)/job:localhost/replica:0/task:0/device:GPU:0
+a: (Const): /job:localhost/replica:0/task:0/device:GPU:0
+>>2019-10-27 22:56:32.842203: I tensorflow/core/common_runtime/placer.cc:886] a: (Const)/job:localhost/replica:0/task:0/device:GPU:0
+>>[[22. 28.]
+  [49. 64.]]
 
 測試2..
 cd siquare01_code/tensorflow_model/models/samples/cookbook/regression
@@ -207,29 +229,6 @@ print(x)
 import torch
 torch.cuda.is_available()
 >>True
-
-測試5-3
-(ref:https://blog.csdn.net/linghugoolge/article/details/83989649)
-import numpy
-import tensorflow as tf
-a = tf.constant([1.0, 2.0, 3.0, 4.0, 5.0, 6.0], shape=[2, 3], name='a')
-b = tf.constant([1.0, 2.0, 3.0, 4.0, 5.0, 6.0], shape=[3, 2], name='b')
-c = tf.matmul(a, b)
-sess = tf.Session(config=tf.ConfigProto(log_device_placement=True))
-print(sess.run(c))
->>Device mapping:
->>/job:localhost/replica:0/task:0/device:GPU:0 -> device: 0, name: Tesla P100-SXM2-16GB, pci bus id: 0000:3d:00.0, compute capability: 6.0
->>/job:localhost/replica:0/task:0/device:GPU:1 -> device: 1, name: Tesla P100-SXM2-16GB, pci bus id: 0000:3e:00.0, compute capability: 6.0
->>/job:localhost/replica:0/task:0/device:GPU:2 -> device: 2, name: Tesla P100-SXM2-16GB, pci bus id: 0000:b1:00.0, compute capability: 6.0
->>/job:localhost/replica:0/task:0/device:GPU:3 -> device: 3, name: Tesla P100-SXM2-16GB, pci bus id: 0000:b2:00.0, compute capability: 6.0
->>MatMul: (MatMul): /job:localhost/replica:0/task:0/device:GPU:0
->>2019-10-27 22:56:32.842151: I tensorflow/core/common_runtime/placer.cc:886] MatMul: (MatMul)/job:localhost/replica:0/task:0/device:GPU:0
-b: (Const): /job:localhost/replica:0/task:0/device:GPU:0
->>2019-10-27 22:56:32.842182: I tensorflow/core/common_runtime/placer.cc:886] b: (Const)/job:localhost/replica:0/task:0/device:GPU:0
-a: (Const): /job:localhost/replica:0/task:0/device:GPU:0
->>2019-10-27 22:56:32.842203: I tensorflow/core/common_runtime/placer.cc:886] a: (Const)/job:localhost/replica:0/task:0/device:GPU:0
->>[[22. 28.]
-  [49. 64.]]
 
 
 
