@@ -187,8 +187,29 @@ python cifar10_multi_gpu_train_1081018gpu3.py
 >>出現xxxx examples/sec   xxxxx sec/batch
 
 
-測試5
-ref:https://blog.csdn.net/linghugoolge/article/details/83989649
+安裝pytorch
+(ref:https://pytorch.org/get-started/previous-versions/)
+$ conda install pytorch==1.1.0 torchvision==0.3.0 cudatoolkit==9.0 -c pytorch
+
+測試5-1
+(https://pytorch.org/get-started/locally/)
+from __future__ import print_function
+import torch
+x = torch.rand(5, 3)
+print(x)
+>>tensor([[0.6330, 0.4380, 0.7200],
+         [0.4448, 0.0647, 0.0164],
+         [0.6304, 0.6190, 0.9730],
+         [0.6888, 0.1243, 0.5981],
+         [0.7461, 0.5065, 0.3466]])
+
+測試5-2
+import torch
+torch.cuda.is_available()
+>>True
+
+測試5-3
+(ref:https://blog.csdn.net/linghugoolge/article/details/83989649)
 import numpy
 import tensorflow as tf
 a = tf.constant([1.0, 2.0, 3.0, 4.0, 5.0, 6.0], shape=[2, 3], name='a')
