@@ -212,6 +212,16 @@ python cifar10_multi_gpu_train_1081018gpu3.py
 安裝pytorch
 (ref:https://pytorch.org/get-started/previous-versions/)
 $ conda install pytorch==1.1.0 torchvision==0.3.0 cudatoolkit==9.0 -c pytorch
+$ conda create -n py36_tensorflowGPU180_torch110 --clone py36_tensorflowGPU180
+>> 成功安裝如下
+    package                |            build
+    ------------------------------------------------------------------------------
+    ninja-1.9.0            |   py36hfd86e86_0                      1.6 MB
+    cffi-1.13.0            |   py36h2e261b9_0                      224 KB
+    pytorch-1.1.0          |   py3.6_cuda9.0.176_cudnn7.5.1_0    377.0 MB  pytorch
+    torchvision-0.3.0      |   py36_cu9.0.176_1                   3 .7 MB  pytorch
+    ------------------------------------------------------------------------------
+                                                    Total:       382.5 MB
 
 測試5-1
 (https://pytorch.org/get-started/locally/)
