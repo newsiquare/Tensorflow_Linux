@@ -82,7 +82,7 @@ $ source activate py36_tensorflowGPU180
 $ conda update -n base conda
 
 安裝
-$ conda install tensorflow-gpu=1.8.0 -y
+$ conda install tensorflow-gpu=1.8.0 -y              # CPU版, conda install tensorflow=1.8.0 -y)
 $ conda install pillow, lxml, matplotlib, pandas
 $ conda install ipython
 
